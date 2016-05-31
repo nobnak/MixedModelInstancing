@@ -181,6 +181,7 @@ GameObject:
   m_Component:
   - 4: {fileID: 1199583517}
   - 114: {fileID: 1199583516}
+  - 114: {fileID: 1199583518}
   m_Layer: 0
   m_Name: Instancing
   m_TagString: Untagged
@@ -205,11 +206,8 @@ MonoBehaviour:
   propTriangleBuf: _TriangleBuf
   propVertexBuf: _VertexBuf
   propUvBuf: _UvBuf
-  propTransformBuf: _WorldMatBuf
-  instanceTransforms:
-  - {fileID: 279805445}
-  - {fileID: 1422073173}
-  - {fileID: 748088412}
+  instanceDataset:
+  - {fileID: 1199583518}
 --- !u!4 &1199583517
 Transform:
   m_ObjectHideFlags: 0
@@ -223,6 +221,22 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 2
+--- !u!114 &1199583518
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1199583515}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e4e9ca145519a994bb56172287873c0d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  propTransformBuf: _WorldMatBuf
+  instanceTransforms:
+  - {fileID: 279805445}
+  - {fileID: 1422073173}
+  - {fileID: 748088412}
 --- !u!1 &1422073172
 GameObject:
   m_ObjectHideFlags: 0

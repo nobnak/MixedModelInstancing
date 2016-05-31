@@ -14,13 +14,10 @@ namespace MixedModelInstancing {
 		public string propTriangleBuf = "_TriangleBuf";
 		public string propVertexBuf = "_VertexBuf";
 		public string propUvBuf = "_UvBuf";
-		public string propTransformBuf = "_WorldMatBuf";
 
-		public Transform[] instanceTransforms;
+		public AbstractInstanceData[] instanceDataset;
 
 		MeshBuf _meshBuf;
-		Matrix4x4[] _matrices;
-		ComputeBuffer _matrixBuf;
 
 		void OnEnable() {
 			_meshBuf = new MeshBuf (mesh);
@@ -28,34 +25,22 @@ namespace MixedModelInstancing {
 		void OnDisable() {
 			if (_meshBuf != null)
 				_meshBuf.Dispose ();
-			if (_matrixBuf != null)
-				_matrixBuf.Dispose ();
 		}
 		void OnRenderObject() {
-			var len = CeilToNearestPowerOfTwo (instanceTransforms.Length);
+			if (instanceDataset.Length == 0)
+				return;
+			var mainInstanceData = instanceDataset [0];
+			var len = mainInstanceData.Length;
 			if (len <= 0)
 				return;
-
-			if (_matrices == null || _matrices.Length != len)
-				_matrices = new Matrix4x4[len];
-			for (var i = 0; i < instanceTransforms.Length; i++)
-				_matrices [i] = instanceTransforms [i].localToWorldMatrix;
-			if (instanceTransforms.Length < len)
-				System.Array.Clear (_matrices, instanceTransforms.Length, len - instanceTransforms.Length);
-
-			if (_matrixBuf == null || _matrixBuf.count != len) {
-				if (_matrixBuf != null)
-					_matrixBuf.Dispose ();
-				_matrixBuf = Create(_matrices);
-			}
-			_matrixBuf.SetData (_matrices);
 
 			mat.SetPass (0);
 			mat.SetBuffer (propTriangleBuf, _meshBuf.triangles);
 			mat.SetBuffer (propVertexBuf, _meshBuf.vertices);
 			mat.SetBuffer (propUvBuf, _meshBuf.uv);
-			mat.SetBuffer (propTransformBuf, _matrixBuf);
-			Graphics.DrawProcedural (MeshTopology.Triangles, _meshBuf.vertexCount, instanceTransforms.Length);
+			for (var i = 0; i < instanceDataset.Length; i++)
+				instanceDataset [i].Set (mat);
+			Graphics.DrawProcedural (MeshTopology.Triangles, _meshBuf.vertexCount, len);
 		}
 
 		public static ComputeBuffer Create<T>(T[] array) {
@@ -93,5 +78,10 @@ namespace MixedModelInstancing {
 			}
 			#endregion
 		}
+	}
+
+	public abstract class AbstractInstanceData : MonoBehaviour {
+		public abstract int Length { get; }
+		public abstract AbstractInstanceData Set (Material mat);
 	}
 }
