@@ -6,7 +6,7 @@ namespace MixedModelInstancing {
 	[ExecuteInEditMode]
 	public class InstancingWithTransformAndFloat : AbstractInstancing {
 		public string propTransformBuf = "_WorldMatBuf";
-		public string propFloat = "_T";
+		public string propFloat = "_TimeBuf";
 
 		public Item[] items;
 
