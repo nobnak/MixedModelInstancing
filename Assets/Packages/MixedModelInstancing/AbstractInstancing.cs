@@ -30,8 +30,10 @@ namespace MixedModelInstancing {
 			_meshBuf = new MeshBuf (mesh);
 		}
 		protected virtual void OnDisable() {
-			if (_meshBuf != null)
-				_meshBuf.Dispose ();
+            if (_meshBuf != null) {
+                _meshBuf.Dispose ();
+                _meshBuf = null;
+            }
 		}
 		protected virtual void OnRenderObject() {
 			var len = Length;

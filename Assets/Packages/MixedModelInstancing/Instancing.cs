@@ -4,7 +4,7 @@ using System.Collections;
 namespace MixedModelInstancing {
 
 	[ExecuteInEditMode]
-	public class InstancingWithTransformAndFloat : AbstractInstancing {
+	public class Instancing : AbstractInstancing {
 		public string propTransformBuf = "_WorldMatBuf";
 		public string propFloat = "_TimeBuf";
 
