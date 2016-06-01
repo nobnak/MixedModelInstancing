@@ -161,34 +161,6 @@ Transform:
   - {fileID: 2000019339}
   m_Father: {fileID: 0}
   m_RootOrder: 2
---- !u!1 &279805444
-GameObject:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  serializedVersion: 4
-  m_Component:
-  - 4: {fileID: 279805445}
-  m_Layer: 0
-  m_Name: Point
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &279805445
-Transform:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 279805444}
-  m_LocalRotation: {x: -0.3450627, y: -0.15523797, z: 0.3120932, w: 0.8714532}
-  m_LocalPosition: {x: -3.4, y: 0.49, z: 10}
-  m_LocalScale: {x: 1.5181806, y: 1.5181811, z: 1.518181}
-  m_LocalEulerAnglesHint: {x: -30.299099, y: -34.251698, z: 48.945797}
-  m_Children: []
-  m_Father: {fileID: 306965659}
-  m_RootOrder: 0
 --- !u!1 &306965658
 GameObject:
   m_ObjectHideFlags: 0
@@ -198,6 +170,7 @@ GameObject:
   m_Component:
   - 4: {fileID: 306965659}
   - 114: {fileID: 306965660}
+  - 114: {fileID: 306965661}
   m_Layer: 0
   m_Name: Cluster
   m_TagString: Untagged
@@ -215,10 +188,7 @@ Transform:
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_Children:
-  - {fileID: 279805445}
-  - {fileID: 1422073173}
-  - {fileID: 748088412}
+  m_Children: []
   m_Father: {fileID: 108116329}
   m_RootOrder: 0
 --- !u!114 &306965660
@@ -233,42 +203,23 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   facade: {fileID: 131698100}
-  time: 0
-  items:
-  - type: 0
-    transform: {fileID: 279805445}
-  - type: 1
-    transform: {fileID: 1422073173}
-  - type: 0
-    transform: {fileID: 748088412}
---- !u!1 &748088411
-GameObject:
+  time: 6.01
+  items: []
+--- !u!114 &306965661
+MonoBehaviour:
   m_ObjectHideFlags: 0
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
-  serializedVersion: 4
-  m_Component:
-  - 4: {fileID: 748088412}
-  m_Layer: 0
-  m_Name: Point (2)
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &748088412
-Transform:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 748088411}
-  m_LocalRotation: {x: 0.22145545, y: 0.11000974, z: -0.31712523, w: 0.91558015}
-  m_LocalPosition: {x: 1.85, y: -0.44, z: 9.21}
-  m_LocalScale: {x: 0.7222965, y: 1, z: 1.4820185}
-  m_LocalEulerAnglesHint: {x: 28.3785, y: 3.9747999, z: -37.203197}
-  m_Children: []
-  m_Father: {fileID: 306965659}
-  m_RootOrder: 2
+  m_GameObject: {fileID: 306965658}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fc77cfb3056e5e6479de92d6238f5a2c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  types: 00000000
+  count: 1000
+  radius: 3
+  size: 0.2
 --- !u!1 &1199583515
 GameObject:
   m_ObjectHideFlags: 0
@@ -297,18 +248,14 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
-  mat: {fileID: 2100000, guid: 25d67da2b8e60914b887639ad5a5440f, type: 2}
-  pass: 0
   propTriangleBuf: _TriangleBuf
   propVertexBuf: _VertexBuf
   propUvBuf: _UvBuf
+  pass: 0
+  mat: {fileID: 2100000, guid: 25d67da2b8e60914b887639ad5a5440f, type: 2}
   propTransformBuf: _WorldMatBuf
   propFloat: _TimeBuf
-  items:
-  - transform: {fileID: 279805445}
-    t: 0
-  - transform: {fileID: 748088412}
-    t: 0
+  items: []
 --- !u!4 &1199583517
 Transform:
   m_ObjectHideFlags: 0
@@ -322,34 +269,6 @@ Transform:
   m_Children: []
   m_Father: {fileID: 131698101}
   m_RootOrder: 0
---- !u!1 &1422073172
-GameObject:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  serializedVersion: 4
-  m_Component:
-  - 4: {fileID: 1422073173}
-  m_Layer: 0
-  m_Name: Point (1)
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &1422073173
-Transform:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 1422073172}
-  m_LocalRotation: {x: 0.2676461, y: -0.5680784, z: 0.17510599, w: 0.7582813}
-  m_LocalPosition: {x: 0, y: -0.36, z: 12.17}
-  m_LocalScale: {x: 1, y: 1.72257, z: 1}
-  m_LocalEulerAnglesHint: {x: 37.218098, y: -74.612595, z: -2.7732}
-  m_Children: []
-  m_Father: {fileID: 306965659}
-  m_RootOrder: 1
 --- !u!1 &1696489164
 GameObject:
   m_ObjectHideFlags: 0
@@ -540,13 +459,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   mesh: {fileID: 10207, guid: 0000000000000000e000000000000000, type: 0}
-  mat: {fileID: 2100000, guid: 25d67da2b8e60914b887639ad5a5440f, type: 2}
-  pass: 0
   propTriangleBuf: _TriangleBuf
   propVertexBuf: _VertexBuf
   propUvBuf: _UvBuf
+  pass: 0
+  mat: {fileID: 2100000, guid: 25d67da2b8e60914b887639ad5a5440f, type: 2}
   propTransformBuf: _WorldMatBuf
   propFloat: _TimeBuf
-  items:
-  - transform: {fileID: 1422073173}
-    t: 0
+  items: []

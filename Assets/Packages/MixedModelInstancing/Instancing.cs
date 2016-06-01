@@ -50,7 +50,6 @@ namespace MixedModelInstancing {
             if (len <= 0)
                 return;
 
-            mat.SetPass (0);
             mat.SetBuffer (propTriangleBuf, _meshBuf.triangles);
             mat.SetBuffer (propVertexBuf, _meshBuf.vertices);
             mat.SetBuffer (propUvBuf, _meshBuf.uv);
@@ -58,15 +57,18 @@ namespace MixedModelInstancing {
             mat.SetBuffer (propTransformBuf, _matrixBuf);
             mat.SetBuffer (propFloat, _floatBuf);
 
+			mat.SetPass (0);
             Graphics.DrawProcedural (MeshTopology.Triangles, _meshBuf.vertexCount, len);
         }
         void Update() {
             var len = Instancing.CeilToNearestPowerOfTwo (items.Length);
+			if (len <= 0)
+				return;
+			
             if (_matrices == null || _matrices.Length < len) {
                 _matrices = new Matrix4x4[len];
                 _floats = new float[len];
             }
-            len = _matrices.Length;
 
             for (var i = 0; i < items.Length; i++) {
                 var item = items [i];
