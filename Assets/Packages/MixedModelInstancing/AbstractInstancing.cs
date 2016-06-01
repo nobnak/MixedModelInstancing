@@ -4,7 +4,7 @@ using System.Runtime.InteropServices;
 
 namespace MixedModelInstancing {
 
-	public class Instancing : MonoBehaviour {
+	public abstract class AbstractInstancing : MonoBehaviour {
 		public static readonly float InvLogTwo = 1f / Mathf.Log (2);
 
 		public Mesh mesh;
@@ -15,31 +15,30 @@ namespace MixedModelInstancing {
 		public string propVertexBuf = "_VertexBuf";
 		public string propUvBuf = "_UvBuf";
 
-		public AbstractInstanceData[] instanceDataset;
-
-		MeshBuf _meshBuf;
-
-		void OnEnable() {
-			_meshBuf = new MeshBuf (mesh);
-		}
-		void OnDisable() {
-			if (_meshBuf != null)
-				_meshBuf.Dispose ();
-		}
-		void OnRenderObject() {
-			if (instanceDataset.Length == 0)
-				return;
-			var mainInstanceData = instanceDataset [0];
-			var len = mainInstanceData.Length;
-			if (len <= 0)
-				return;
-
+		public virtual AbstractInstancing Set(Material mat) {
 			mat.SetPass (0);
 			mat.SetBuffer (propTriangleBuf, _meshBuf.triangles);
 			mat.SetBuffer (propVertexBuf, _meshBuf.vertices);
 			mat.SetBuffer (propUvBuf, _meshBuf.uv);
-			for (var i = 0; i < instanceDataset.Length; i++)
-				instanceDataset [i].Set (mat);
+			return this;
+		}
+		public abstract int Length { get; }
+
+		MeshBuf _meshBuf;
+
+		protected virtual void OnEnable() {
+			_meshBuf = new MeshBuf (mesh);
+		}
+		protected virtual void OnDisable() {
+			if (_meshBuf != null)
+				_meshBuf.Dispose ();
+		}
+		protected virtual void OnRenderObject() {
+			var len = Length;
+			if (len <= 0)
+				return;
+
+			Set (mat);
 			Graphics.DrawProcedural (MeshTopology.Triangles, _meshBuf.vertexCount, len);
 		}
 
@@ -78,10 +77,5 @@ namespace MixedModelInstancing {
 			}
 			#endregion
 		}
-	}
-
-	public abstract class AbstractInstanceData : MonoBehaviour {
-		public abstract int Length { get; }
-		public abstract AbstractInstanceData Set (Material mat);
 	}
 }
