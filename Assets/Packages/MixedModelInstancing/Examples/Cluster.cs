@@ -17,7 +17,7 @@ namespace MixedModelInstancing {
         public int Count(int type) {
             return _countInTypes [type];
         }
-        public void Assign(int type, int index, ref Instancing.Item item) {
+		public void Assign(int type, int index, ref CustomInstancing.Item item) {
             item.t = time;
             item.transform = _typedItems [type] [index];
         }
@@ -51,6 +51,14 @@ namespace MixedModelInstancing {
             }
         }
 
+		void OnEnable() {
+			if (facade != null)
+				facade.Add(this);
+		}
+		void OnDisable() {
+			if (facade != null)
+				facade.Remove (this);
+		}
         void Update() {
             ManualUpdate ();
         }

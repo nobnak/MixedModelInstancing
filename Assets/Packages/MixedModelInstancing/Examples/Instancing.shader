@@ -29,6 +29,7 @@
 			StructuredBuffer<int> _TriangleBuf;
 			StructuredBuffer<float3> _VertexBuf;
 			StructuredBuffer<float2> _UvBuf;
+
 			StructuredBuffer<float4x4> _WorldMatBuf;
 			StructuredBuffer<float> _TimeBuf;
 			
