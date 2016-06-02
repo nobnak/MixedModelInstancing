@@ -8,7 +8,7 @@ namespace MixedModelInstancing {
     public class MixedInstancing : MonoBehaviour {
 		public CustomInstancing[] instancings;
 
-		List<Cluster> _clusters;
+        List<Cluster> _clusters = new List<Cluster> ();
 
         int[] _countInInstancings;
 		CustomInstancing.Item[][] _itemsInInstancings;
@@ -21,9 +21,6 @@ namespace MixedModelInstancing {
 			}
 		}
 
-		void Awake() {
-			_clusters = new List<Cluster> ();
-		}
         void Update() {
 			var clusterLen = _clusters.Count;
 			for (var i = 0; i < clusterLen; i++)

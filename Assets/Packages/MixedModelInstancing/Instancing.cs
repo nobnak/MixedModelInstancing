@@ -13,6 +13,7 @@ namespace MixedModelInstancing {
         public string propTriangleBuf = "_TriangleBuf";
         public string propVertexBuf = "_VertexBuf";
         public string propUvBuf = "_UvBuf";
+        public string propUv1Buf = "_Uv1Buf";
         public int pass = 0;
         public Material mat;
 
@@ -36,17 +37,22 @@ namespace MixedModelInstancing {
         protected virtual void OnRenderObject() {
 			mat.SetBuffer (propTriangleBuf, _meshBuf.triangles);
 			mat.SetBuffer (propVertexBuf, _meshBuf.vertices);
-			mat.SetBuffer (propUvBuf, _meshBuf.uv);
+            if (_meshBuf.uv != null)
+			    mat.SetBuffer (propUvBuf, _meshBuf.uv);
+            if (_meshBuf.uv1 != null)
+                mat.SetBuffer (propUv1Buf, _meshBuf.uv1);
 
 			mat.SetPass (0);
 			Graphics.DrawProcedural (MeshTopology.Triangles, _meshBuf.vertexCount, Length);
         }
 
         public static ComputeBuffer Create<T>(T[] array) {
-            return new ComputeBuffer (array.Length, Marshal.SizeOf (typeof(T)));
+            return (array == null) ? null : new ComputeBuffer (array.Length, Marshal.SizeOf (typeof(T)));
         }
         public static ComputeBuffer Convert<T>(T[] array) {
             var buf = Create (array);
+            if (buf == null)
+                return null;
             buf.SetData (array);
             return buf;
         }
@@ -60,12 +66,14 @@ namespace MixedModelInstancing {
             public readonly ComputeBuffer triangles;
             public readonly ComputeBuffer vertices;
             public readonly ComputeBuffer uv;
+            public readonly ComputeBuffer uv1;
 
             public MeshBuf(Mesh mesh) {
                 this.mesh = mesh;
                 this.triangles = Convert(mesh.triangles);
                 this.vertices = Convert(mesh.vertices);
                 this.uv = Convert(mesh.uv);
+                this.uv1 = Convert(mesh.uv2);
                 this.vertexCount = this.triangles.count;
             }
 
@@ -74,6 +82,7 @@ namespace MixedModelInstancing {
                 triangles.Dispose ();
                 vertices.Dispose ();
                 uv.Dispose ();
+                uv1.Dispose ();
             }
             #endregion
         }
