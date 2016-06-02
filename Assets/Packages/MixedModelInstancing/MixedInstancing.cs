@@ -21,7 +21,7 @@ namespace MixedModelInstancing {
 			}
 		}
 
-		void OnEnable() {
+		void Awake() {
 			_clusters = new List<Cluster> ();
 		}
         void Update() {
